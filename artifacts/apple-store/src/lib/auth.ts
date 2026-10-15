@@ -16,10 +16,11 @@ export type SessionUser = {
   id: string;
   name: string;
   email: string;
+  role: "customer" | "merchant";
 };
 
 export async function createSessionToken(user: SessionUser) {
-  return new SignJWT({ name: user.name, email: user.email })
+  return new SignJWT({ name: user.name, email: user.email, role: user.role })
     .setProtectedHeader({ alg: "HS256" })
     .setSubject(user.id)
     .setIssuedAt()
@@ -38,11 +39,19 @@ export async function getSessionUser(): Promise<SessionUser | null> {
     if (
       typeof payload.sub !== "string" ||
       typeof payload.name !== "string" ||
-      typeof payload.email !== "string"
+      typeof payload.email !== "string" ||
+      (payload.role !== undefined &&
+        payload.role !== "customer" &&
+        payload.role !== "merchant")
     ) {
       return null;
     }
-    return { id: payload.sub, name: payload.name, email: payload.email };
+    return {
+      id: payload.sub,
+      name: payload.name,
+      email: payload.email,
+      role: payload.role === "merchant" ? "merchant" : "customer",
+    };
   } catch {
     return null;
   }

@@ -42,6 +42,7 @@ export async function POST(request: Request) {
       id: user._id.toString(),
       name: user.name,
       email: user.email,
+      role: user.role === "merchant" ? ("merchant" as const) : ("customer" as const),
     };
     const token = await createSessionToken(publicUser);
     const response = NextResponse.json({ user: publicUser });

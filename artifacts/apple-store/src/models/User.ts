@@ -12,6 +12,12 @@ const userSchema = new Schema(
       maxlength: 254,
     },
     passwordHash: { type: String, required: true, select: false },
+    role: {
+      type: String,
+      enum: ["customer", "merchant"],
+      default: "customer",
+      required: true,
+    },
   },
   { timestamps: true },
 );

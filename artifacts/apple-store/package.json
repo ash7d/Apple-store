@@ -8,6 +8,7 @@
     "build": "next build",
     "serve": "next start --hostname 0.0.0.0 --port $PORT",
     "seed": "tsx scripts/seed.ts",
+    "promote-merchant": "tsx scripts/promote-merchant.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {

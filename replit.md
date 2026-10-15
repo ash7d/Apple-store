@@ -15,6 +15,7 @@ A responsive Apple-products storefront with MongoDB-backed products, a persisten
 - `pnpm --filter @workspace/apple-store run dev` — Next.js development server, using the artifact-provided `PORT`.
 - `pnpm --filter @workspace/apple-store run typecheck` — check application types.
 - `pnpm --filter @workspace/apple-store run seed` — idempotently seed the three sample products into MongoDB.
+- `pnpm --filter @workspace/apple-store run promote-merchant -- owner@example.com` — grant merchant access to an existing account from the trusted workspace shell. Public signup always creates a customer.
 - `pnpm --filter @workspace/apple-store run build` / `run serve` — production Next.js build and server.
 - Required server-only Replit Secrets: `MONGODB_URI`, `JWT_SECRET`.
 

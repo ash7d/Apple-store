@@ -12,7 +12,12 @@ export type Product = {
   featured: boolean;
 };
 
-export type User = { id: string; name: string; email: string };
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  role: "customer" | "merchant";
+};
 export type Order = {
   id: string;
   items: { productId: string; name: string; image: string; quantity: number; price: number }[];

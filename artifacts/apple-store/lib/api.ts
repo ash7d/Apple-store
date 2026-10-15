@@ -13,11 +13,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return payload as T;
 }
 
-export const getProducts = (params: { q?: string; category?: string; sort?: string } = {}) => {
+export const getProducts = (params: { q?: string; category?: string; sort?: string; manage?: boolean } = {}) => {
   const search = new URLSearchParams();
   if (params.q) search.set("q", params.q);
   if (params.category) search.set("category", params.category);
   if (params.sort) search.set("sort", params.sort);
+  if (params.manage) search.set("manage", "true");
   const query = search.toString();
   return request<Product[]>(`/api/products${query ? `?${query}` : ""}`);
 };

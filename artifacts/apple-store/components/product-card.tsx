@@ -8,6 +8,7 @@ const fallbackImages: Record<string, string> = {
 };
 export function productImage(product: Pick<Product, "image" | "name" | "category">) {
   if (product.image?.startsWith("/")) return product.image;
+  if (product.image?.startsWith("https://")) return product.image;
   const key = `${product.name} ${product.category}`.toLowerCase();
   if (key.includes("watch")) return fallbackImages.watch;
   if (key.includes("mac") || key.includes("laptop")) return fallbackImages.macbook;

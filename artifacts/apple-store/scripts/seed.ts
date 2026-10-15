@@ -63,7 +63,7 @@ async function seed() {
   for (const product of products) {
     await Product.updateOne(
       { slug: product.slug },
-      { $set: product },
+      { $setOnInsert: product },
       { upsert: true },
     );
   }

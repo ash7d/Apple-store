@@ -10,7 +10,12 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const links = [{ href: "/", label: "Discover" }, { href: "/products", label: "Shop" }, { href: "/orders", label: "Orders" }];
+  const links = [
+    { href: "/", label: "Discover" },
+    { href: "/products", label: "Shop" },
+    { href: "/orders", label: "Orders" },
+    ...(user?.role === "merchant" ? [{ href: "/merchant/products", label: "Manage products" }] : []),
+  ];
   async function handleAccount() {
     if (user) {
       try {
