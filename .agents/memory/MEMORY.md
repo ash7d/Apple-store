@@ -1,0 +1,1 @@
+- [Next.js preview origins](next-preview-origins.md) — proxied Next.js development previews require explicit development-origin allowance.

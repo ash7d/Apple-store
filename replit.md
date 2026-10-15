@@ -1,45 +1,35 @@
-# [Project name]
+# Apple Store
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A responsive Apple-products storefront with MongoDB-backed products, a persistent shopping bag, customer accounts, and protected order history.
 
-## Run & Operate
+## Stack and standing requirements
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- The user explicitly chose the attached skill's **Next.js App Router, TypeScript, Tailwind, MongoDB Atlas, and Mongoose** stack instead of the starter React/Vite/PostgreSQL stack.
+- The user requested local authentication: bcryptjs password hashing and JWT sessions in httpOnly cookies. Do not migrate this app to a third-party login service without asking.
+- Preserve the approved clean, minimalist Apple-inspired storefront design across all new screens.
+- Products must come from MongoDB, not hardcoded frontend arrays.
+- Stripe checkout is the later phase in the supplied skill. The current bag makes no purchase or payment claim.
 
-## Stack
+## Run and operate
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- `pnpm --filter @workspace/apple-store run dev` — Next.js development server, using the artifact-provided `PORT`.
+- `pnpm --filter @workspace/apple-store run typecheck` — check application types.
+- `pnpm --filter @workspace/apple-store run seed` — idempotently seed the three sample products into MongoDB.
+- `pnpm --filter @workspace/apple-store run build` / `run serve` — production Next.js build and server.
+- Required server-only Replit Secrets: `MONGODB_URI`, `JWT_SECRET`.
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/apple-store/app/` — Next.js pages and API route handlers.
+- `artifacts/apple-store/components/` — storefront components and cart/account state.
+- `artifacts/apple-store/src/lib/` — MongoDB connection reuse and JWT helpers.
+- `artifacts/apple-store/src/models/` — Mongoose User, Product, and Order models.
+- `artifacts/apple-store/scripts/seed.ts` — sample catalog data.
+- `artifacts/apple-store/public/products/` — generated product artwork.
 
-## Architecture decisions
+## Runtime notes
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
-
-## Product
-
-_Describe the high-level user-facing capabilities of this app once they exist._
-
-## User preferences
-
-_Populate as you build — explicit user instructions worth remembering across sessions._
-
-## Gotchas
-
-_Populate as you build — sharp edges, "always run X before Y" rules._
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- This artifact runs a dynamic Next.js server, not a Vite/static SPA.
+- The unused starter API service has been moved off `/api` so it cannot intercept the storefront's Next.js API handlers.
+- The Next.js development origin allowlist includes the local screenshot host and Replit preview domains.
+- Secrets are server-only. Never return password hashes or use credentials in client components.

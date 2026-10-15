@@ -45,7 +45,7 @@ export async function GET(request: Request) {
     }
     if (category) filter.category = category;
 
-    const sort =
+    const sort: Record<string, 1 | -1> =
       sortKey === "price-asc"
         ? { price: 1 as const }
         : sortKey === "price-desc"
