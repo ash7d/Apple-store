@@ -1,6 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { trackEvent } from "../../../lib/analytics";
 
 export default function CheckoutCancelPage() {
+  const cancellationTracked = useRef(false);
+
+  useEffect(() => {
+    if (cancellationTracked.current) return;
+    cancellationTracked.current = true;
+    trackEvent("checkout_cancelled");
+  }, []);
+
   return (
     <main className="page-wrap checkout-result">
       <span className="eyebrow">No payment taken</span>

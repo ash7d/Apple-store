@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { useStore } from "../../components/store-provider";
+import { trackEvent } from "../../lib/analytics";
 
 type AddressForm = {
   name: string;
@@ -64,6 +65,7 @@ export default function CheckoutPage() {
       if (!response.ok || !result.url) {
         throw new Error(result.error || "Checkout could not be started.");
       }
+      trackEvent("checkout_started");
       window.location.assign(result.url);
     } catch (submitError) {
       setError(

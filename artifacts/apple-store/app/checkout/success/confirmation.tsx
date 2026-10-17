@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStore } from "../../../components/store-provider";
+import { trackEvent } from "../../../lib/analytics";
 
 type ConfirmationState = "loading" | "paid" | "pending" | "error";
 
@@ -10,6 +11,7 @@ export default function CheckoutConfirmation({ sessionId }: { sessionId: string 
   const { clearCart } = useStore();
   const [state, setState] = useState<ConfirmationState>("loading");
   const [message, setMessage] = useState("");
+  const completionTracked = useRef(false);
 
   async function confirmPayment() {
     if (!sessionId) {
@@ -33,6 +35,10 @@ export default function CheckoutConfirmation({ sessionId }: { sessionId: string 
       if (response.ok && result.paid) {
         clearCart();
         setState("paid");
+        if (!completionTracked.current) {
+          completionTracked.current = true;
+          trackEvent("checkout_completed");
+        }
         return;
       }
       if (response.ok && result.status === "pending") {
