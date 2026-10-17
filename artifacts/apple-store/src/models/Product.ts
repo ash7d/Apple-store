@@ -16,6 +16,9 @@ const productSchema = new Schema(
     },
     stock: { type: Number, required: true, min: 0, default: 0 },
     featured: { type: Boolean, default: false },
+    stripeProductId: { type: String, default: null },
+    stripePriceId: { type: String, default: null },
+    stripePriceAmountCents: { type: Number, default: null },
   },
   { timestamps: true },
 );

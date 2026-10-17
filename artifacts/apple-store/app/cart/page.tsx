@@ -30,8 +30,8 @@ export default function CartPage() {
             <h2>Summary</h2><div className="summary-line"><span>Subtotal</span><span>${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span></div>
             <div className="summary-line"><span>Delivery</span><span>Free</span></div>
             <div className="summary-line summary-total"><span>Total</span><span>${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span></div>
-            <button className="pill" type="button" disabled aria-describedby="checkout-note">Continue to checkout</button>
-            <small id="checkout-note">Checkout will be available soon. Your bag is saved on this device.</small>
+            <Link className="pill" href="/checkout" aria-describedby="checkout-note">Continue to checkout</Link>
+            <small id="checkout-note">Secure card payment. Delivery is free worldwide.</small>
           </aside>
         </div>
       )}
